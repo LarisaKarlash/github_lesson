@@ -33,7 +33,7 @@ namespace lesson_1
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync(_configure["Microsoft.Hosting.Lifetime"]);
+                    await context.Response.WriteAsync(_configure["Logging:LogLevel:Microsoft.Hosting.Lifetime"]);
                 });
             });
 
