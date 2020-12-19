@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "News Page";
+}
+
+@section MyTable
+{
+    @for (int id = 0; id < 5; id++)
+    {
+        ViewBag.news = NewsBase.News.First(news => news.Id == id).Title + "    Author: " + NewsBase.News.First(news => news.Id == id).AuthorName;
+        <table>
+            <tr>
+                <td>@ViewBag.news</td>
+            </tr>
+        </table>
+    }}
