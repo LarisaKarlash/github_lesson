@@ -2,9 +2,12 @@ version: 1.0.{build}
 configuration: Release
 cache: 
     - packages -> **\packages.config
+
+matrix:
+  fast_finish: true     # set this flag to immediately finish build once one of the jobs fails.
+
 before_build: nuget restore
+
 build: 
-    project: lesson_1.csproj
-    project: lesson_2.csproj
-    project: lesson_3.csproj
+    project: *.csproj
     publish_wap: true
