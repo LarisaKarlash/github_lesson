@@ -10,6 +10,6 @@ before_build: nuget restore
 
 build: 
     project: lesson_1.csproj
-    project: lesson_2.csproj
-    project: lesson_3.csproj
+             lesson_2.csproj
+             lesson_3.csproj
     publish_wap: true
