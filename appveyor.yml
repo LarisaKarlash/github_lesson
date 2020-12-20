@@ -3,13 +3,20 @@ configuration: Release
 cache: 
     - packages -> **\packages.config
 
-matrix:
-  fast_finish: true     # set this flag to immediately finish build once one of the jobs fails.
-
 before_build: nuget restore
 
-build: 
-    project: https://github.com/LarisaKarlash/github_lesson/tree/master/lesson_1/lesson_1/lesson_1.csproj
-             https://github.com/LarisaKarlash/github_lesson/tree/master/lesson_1/lesson_2/lesson_2.csproj
-             https://github.com/LarisaKarlash/github_lesson/tree/master/lesson_1/lesson_3/lesson_3.csproj
-    publish_wap: true
+environment:
+  matrix:
+    - project_name: lesson_1.csproj
+    - project_name: lesson_2.csproj
+    - project_name: lesson_3.csproj
+
+build:
+  project: $(project_name)/$(project_name).csproj
+  verbosity: minimal
+
+test: off
+
+matrix:
+  fast_finish: true
+
