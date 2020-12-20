@@ -7,9 +7,9 @@ before_build: nuget restore
 
 environment:
   matrix:
-    - project_name: lesson_1.csproj
-    - project_name: lesson_2.csproj
-    - project_name: lesson_3.csproj
+    - project_name: LarisaKarlash/github_lesson/tree/master/lesson_1/lesson_1/lesson_1.csproj
+    - project_name: LarisaKarlash/github_lesson/tree/master/lesson_2/lesson_2/lesson_2.csproj
+    - project_name: LarisaKarlash/github_lesson/tree/master/lesson_3/lesson_3/lesson_3.csproj
 
 build:
   project: $(project_name)/$(project_name).csproj
