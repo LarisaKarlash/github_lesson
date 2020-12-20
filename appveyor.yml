@@ -9,5 +9,7 @@ matrix:
 before_build: nuget restore
 
 build: 
-    project: *.csproj
+    project: lesson_1.csproj
+    project: lesson_2.csproj
+    project: lesson_3.csproj
     publish_wap: true
