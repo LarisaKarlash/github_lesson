@@ -9,7 +9,7 @@ matrix:
 before_build: nuget restore
 
 build: 
-    project: lesson_1.csproj
-             lesson_2.csproj
-             lesson_3.csproj
+    project: https://github.com/LarisaKarlash/github_lesson/tree/master/lesson_1/lesson_1/lesson_1.csproj
+             https://github.com/LarisaKarlash/github_lesson/tree/master/lesson_1/lesson_2/lesson_2.csproj
+             https://github.com/LarisaKarlash/github_lesson/tree/master/lesson_1/lesson_3/lesson_3.csproj
     publish_wap: true
