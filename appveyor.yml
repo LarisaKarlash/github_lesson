@@ -2,21 +2,18 @@ version: 1.0.{build}
 configuration: Release
 cache: 
     - packages -> **\packages.config
-
-before_build: nuget restore
-
 environment:
-  matrix:
-    - project_name: LarisaKarlash/github_lesson/tree/master/lesson_1/lesson_1/lesson_1.csproj
-    - project_name: LarisaKarlash/github_lesson/tree/master/lesson_2/lesson_2/lesson_2.csproj
-    - project_name: LarisaKarlash/github_lesson/tree/master/lesson_3/lesson_3/lesson_3.csproj
+    matrix:
+    - solution_folder: lesson_1
+      full_project_name: lesson_1/lesson_1/lesson_1.csproj
 
-build:
-  project: $(project_name)/$(project_name).csproj
-  verbosity: minimal
+    - solution_folder: lesson_2
+      full_project_name: lesson_2/lesson_2/lesson_2.csproj
 
-test: off
+    - solution_folder: lesson_3
+      full_project_name: lesson_3/lesson_3/lesson_3.csproj
 
-matrix:
-  fast_finish: true
-
+before_build: nuget restore %solution_folder%
+build: 
+    project: '%full_project_name%'
+    publish_wap: true
