@@ -13,6 +13,9 @@ environment:
     - solution_folder: lesson_3
       full_project_name: lesson_3/lesson_3/lesson_3.csproj
 
+    - solution_folder: ObjectBD
+      full_project_name: ObjectBD/ObjectBD/ObjectBD.csproj
+
 before_build: nuget restore %solution_folder%
 build: 
     project: '%full_project_name%'
