@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ObjectBD.Models;
 
 namespace ObjectBD.Migrations
 {
     [DbContext(typeof(ObjectBDDBContext))]
-    partial class ObjectBDDBContextModelSnapshot : ModelSnapshot
+    [Migration("20201231064033_Добавлено Id=8")]
+    partial class ДобавленоId8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

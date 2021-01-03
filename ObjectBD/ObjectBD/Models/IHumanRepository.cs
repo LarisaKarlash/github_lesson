@@ -12,11 +12,12 @@ namespace ObjectBD.Models
         IEnumerable<Human> GetHuman(int id);
 
         void ModifyHuman(int id);
+        void DeleteHuman(int id);
 
-        //void KillHuman();
+        void KillHuman();
 
-        //void CreateHuman();
-        
-        
+        void CreateHuman();
+
+
     }
 }

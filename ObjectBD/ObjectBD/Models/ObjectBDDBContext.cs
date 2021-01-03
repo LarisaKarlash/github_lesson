@@ -42,5 +42,6 @@ namespace ObjectBD.Models
                 new Human { Id = 6, FirstName = "Thomas", LastName = "Edison", Age = 84, IsSick = true, Gender = "Male", CountryId = 1 },
                 new Human { Id = 7, FirstName = "Mikle", LastName = "Smitt", Age = 56, IsSick = true, Gender = "Male", CountryId = 4 });
         }
+       
     }
 }

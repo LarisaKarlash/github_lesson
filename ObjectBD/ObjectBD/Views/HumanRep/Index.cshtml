@@ -10,7 +10,8 @@
         <th>IsSick</th>
         <th>Gender</th>
     </tr>
-    @foreach (var human in ViewData["HumanRep"] as List<Human>)
+    @foreach (var human in 
+        ViewData["HumanRep"] as List<Human>)
     {
         <tr>
             <td>@human.Id</td>
