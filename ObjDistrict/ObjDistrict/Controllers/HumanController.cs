@@ -30,5 +30,6 @@ namespace ObjDistrict.Controllers
 
             return View();
         }
+      
     }
 }

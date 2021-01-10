@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Countries";
+}
+
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Population</th>
+        <th>SickCount</th>
+        <th>DeadCount</th>
+        <th>RecoveredCount</th>
+        <th>Vaccine</th>
+    </tr>
+    @foreach (var country in ViewData["Countries"] as List<Country>)
+    {
+        <tr>
+            <td>@country.Id</td>
+            <td>@country.Name</td>
+            <td>@country.Population</td>
+            <td>@country.SickCount</td>
+            <td>@country.DeadCount</td>
+            <td>@country.RecoveredCount</td>
+            <td>@country.Vaccine</td>
+        </tr>
+    }
+</table>

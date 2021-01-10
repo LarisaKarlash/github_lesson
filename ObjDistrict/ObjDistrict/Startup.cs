@@ -26,6 +26,7 @@ namespace ObjDistrict
             services.AddControllersWithViews();
 
             services.AddScoped<IHumanRepository, HumanRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
 
             services.AddDbContext<ObjDistrictDbContext>();
 
