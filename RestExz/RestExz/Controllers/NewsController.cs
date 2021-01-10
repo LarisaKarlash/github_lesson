@@ -91,12 +91,12 @@ namespace RestExz.Controllers
          * Частичное изменения записи коллекции News
          */
         // [HttpPut("News/{pv1}")]
-        [HttpPut]
+        [HttpPatch]
         public IActionResult UpdatePartNews(News news)
         {
             try
             {
-                _newsRepository.UpdatePartNews(news);
+                _newsRepository.UpdatePartNews(news);//, text);
 
                 return Ok();
             }
@@ -110,7 +110,7 @@ namespace RestExz.Controllers
          * Полная замена News
          */
         //[HttpPost("News/{pv1}")]
-        [HttpPatch]
+        [HttpPut]
         public IActionResult UpdateFullNews(News news)
         {
             try

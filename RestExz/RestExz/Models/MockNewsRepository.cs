@@ -39,16 +39,22 @@ namespace RestExz.Models
         // Частичная замена News
         public void UpdatePartNews(News news)
         {
-            var news_m= _news.Where(x => x.Id == news.Id);
+            var news_m = _news.Where(x => x.Id == news.Id);
 
-            // заменяем Text, AuthorName по всем Id = входящему
             foreach (var news_i in news_m)
             {
+                if (news_i.Title != news.Title)
+                    news_i.Title = news.Title;
+
                 if (news_i.Text != news.Text)
                     news_i.Text = news.Text;
 
                 if (news_i.AuthorName != news.AuthorName)
                     news_i.AuthorName = news.AuthorName;
+
+                if (news_i.IsFake != news.IsFake)
+                    news_i.IsFake = news.IsFake;
+
             }
         }
 
