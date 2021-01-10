@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 namespace RestExz.Controllers
 {
     //[Route("api/News/v1")]
+    [Route("News/v1")]
     [ApiController] // указывает, что это методы Rest
     public class NewsController : ControllerBase
     {
@@ -20,7 +21,8 @@ namespace RestExz.Controllers
         }
 
 
-        [HttpGet("News/{pv1}")]
+        //[HttpGet("News/{pv1}")]
+        [HttpGet]
         public IActionResult Index([FromQuery]int id, [FromQuery]string authorName, [FromQuery] bool isFake)
         {
             try
@@ -47,7 +49,8 @@ namespace RestExz.Controllers
         }
 
         //Добавление новости
-        [HttpPost("MyNews/{pv1}")]
+        //[HttpPost("MyNews/{pv1}")]
+        [HttpPost]
         public IActionResult AddNews(News news) //объект получаем из тела запроса
         {
             _newsRepository.AddNews(news);
@@ -68,7 +71,8 @@ namespace RestExz.Controllers
         //public IActionResult DeleteNews([FromHeader] int newsId)
 
 
-        [HttpDelete("News/{pv1}")]
+        //[HttpDelete("News/{pv1}")]
+        [HttpDelete]
         public IActionResult DeleteNews(int newsId)
         {
             try
@@ -86,7 +90,8 @@ namespace RestExz.Controllers
         /*
          * Частичное изменения записи коллекции News
          */
-        [HttpPut("News/{pv1}")]
+        // [HttpPut("News/{pv1}")]
+        [HttpPut]
         public IActionResult UpdatePartNews(News news)
         {
             try
@@ -104,7 +109,8 @@ namespace RestExz.Controllers
         /*
          * Полная замена News
          */
-        [HttpPost("News/{pv1}")]
+        //[HttpPost("News/{pv1}")]
+        [HttpPatch]
         public IActionResult UpdateFullNews(News news)
         {
             try

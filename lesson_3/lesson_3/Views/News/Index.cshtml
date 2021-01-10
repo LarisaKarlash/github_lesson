@@ -1,15 +1,27 @@
 ﻿@{
     ViewBag.Title = "News Page";
 }
-
+<h1>Новости</h1>
 @section MyTable
 {
-    @for (int id = 0; id < 5; id++)
-    {
-        ViewBag.news = NewsBase.News.First(news => news.Id == id).Title + "    Author: " + NewsBase.News.First(news => news.Id == id).AuthorName;
-        <table>
+    <table>
+        <tr>
+            <th>Ид</th>
+            <th>Заголовок</th>
+            <th>Текст</th>
+            <th>Автор</th>
+            <th>Фейк</th>
+        </tr>
+
+        @foreach (var bag in ViewBag.news)
+        {
             <tr>
-                <td>@ViewBag.news</td>
+                <td>@bag.Id</td>
+                <td>@bag.Title</td>
+                <td>@bag.Text</td>
+                <td>@bag.AuthorName</td>
+                <td>@bag.IsFake</td>
             </tr>
-        </table>
-    }}
+        }
+    </table>
+} 
