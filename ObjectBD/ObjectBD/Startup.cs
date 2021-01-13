@@ -27,6 +27,7 @@ namespace ObjectBD
             services.AddControllersWithViews();
 
             services.AddScoped<IHumanRepository, HumanRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
 
             services.AddDbContext<ObjectBDDBContext>();
         }

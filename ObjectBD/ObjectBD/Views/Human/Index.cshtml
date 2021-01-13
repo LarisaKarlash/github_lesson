@@ -1,4 +1,7 @@
-﻿@{
+﻿@*model IEnumerable<Human>*@
+@model IEnumerable<HomeIndexViewModel>
+
+@{
     ViewData["Title"] = "Humans";
 }
 
@@ -6,20 +9,50 @@
     <tr>
         <th>Id</th>
         <th>FirstName</th>
+        <th>FirstName</th>
         <th>LastName</th>
         <th>Age</th>
-        <th>IsSick</th>
-        <th>Gender</th>
+        <th>Country</th>
+        <th>CountryId</th>
+        <th>CountryId</th>
     </tr>
-    @foreach (var human in ViewData["Humans"] as List<Human>)
-    {
+
+        @foreach (var human in Model)
+            {
+                <tr>
+                    <td>@human.Id</td>
+                    @*по нажатию на FirstName выведем всю информацию по человеку*@
+                    <td><a href="index?humanid=@human.Id">@human.FirstName</a></td>
+                    <td><a asp-controller="Human" asp-action="Index" asp-route-humanid="@human.Id">@human.FirstName</a></td>
+                    <td>@human.LastName</td>
+                    <td>@human.Age</td>
+                    @*<td><a asp-controller="Human" asp-action="Country" asp-route-countryname="@human.Country">@human.Country</a></td>*@
+                    <td>@human.Country</td>
+                    <td><a asp-controller="Human" asp-action="Country" asp-route-countryid="@human.CountryId">@human.CountryId</a></td>
+                    <td>@human.CountryId</td>
+                </tr>
+            }
+    </table>
+
+@*<table class="table" style="text-align: center">
         <tr>
-            <td>@human.Id</td>
-            <td>@human.FirstName</td>
-            <td>@human.LastName</td>
-            <td>@human.Age</td>
-            <td>@human.IsSick</td>
-            <td>@human.Gender</td>
+            <th>Id</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Age</th>
+            <th>IsSick</th>
+            <th>Gender</th>
         </tr>
-    }
-</table>
+
+        @foreach (var human in Model)
+            {
+                <tr>
+                    <td>@human.Id</td>
+                    <td>@human.FirstName</td>
+                    <td>@human.LastName</td>
+                    <td>@human.Age</td>
+                    <td>@human.IsSick</td>
+                    <td>@human.Gender</td>
+                </tr>
+            }
+    </table>*@

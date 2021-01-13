@@ -1,6 +1,7 @@
 ﻿@{
-    ViewData["Title"] = "HumanRep";
+    ViewData["Title"] = "Humans";
 }
+
 <table class="table" style="text-align: center">
     <tr>
         <th>Id</th>
@@ -10,8 +11,7 @@
         <th>IsSick</th>
         <th>Gender</th>
     </tr>
-    @foreach (var human in 
-        ViewData["HumanRep"] as List<Human>)
+    @foreach (var human in ViewData["Humans"] as List<Human>)
     {
         <tr>
             <td>@human.Id</td>

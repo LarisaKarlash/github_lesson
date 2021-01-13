@@ -1,0 +1,25 @@
+﻿@model Country
+<form asp-controller="Human" asp-action="CreateCountry" method="post">
+    @*<label asp-for="Id"></label><br>
+        <input asp-for="Id" type="number" /><br>*@
+
+    <label asp-for="Name"></label><br>
+    <input asp-for="Name" type="text" /><br>
+
+    <label asp-for="Population"></label><br>
+    <input asp-for="Population" type="number" /><br>
+
+    <label asp-for="SickCount"></label><br>
+    <input asp-for="SickCount" type="number" /><br>
+
+    <label asp-for="DeadCount"></label><br>
+    <input asp-for="DeadCount" type="number" /><br>
+
+    <label asp-for="RecoveredCount"></label><br>
+    <input asp-for="RecoveredCount" type="number" /><br>
+
+    <label asp-for="Vaccine"></label><br>
+    <input asp-for="Vaccine" type="checkbox" /><br>
+
+    <button type="submit">Create country</button>
+</form>

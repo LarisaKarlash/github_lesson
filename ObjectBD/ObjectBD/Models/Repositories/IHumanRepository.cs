@@ -7,12 +7,15 @@ namespace ObjectBD.Models
 {
     public interface IHumanRepository
     {
-        IEnumerable<Human> GetAllHumans();
+        IEnumerable<Human> GetAllHumans();      
 
-        IEnumerable<Human> GetHuman(int id);
+        IEnumerable<Human> GetHuman(int? id);
 
-        void ModifyHuman(int id);
-        void DeleteHuman(int id);
+        void AddHuman(Human human);
+
+        void RemoveHuman(int humanid);
+
+        void ModifyHuman(int id, string lastname);
 
         void KillHuman();
 
