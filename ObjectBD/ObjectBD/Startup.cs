@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ObjectBD.Controllers;
 using ObjectBD.Models;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,8 @@ namespace ObjectBD
 
             services.AddScoped<IHumanRepository, HumanRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
+           // services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ObjectBDDBContext>();
+            services.AddIdentity<IdentityUserPolzow, IndentityRolePolzow>().AddEntityFrameworkStores<ObjectBDDBContext>();
 
             services.AddDbContext<ObjectBDDBContext>();
         }

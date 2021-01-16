@@ -41,7 +41,7 @@ namespace ObjectBD.Controllers
                 int CountryId;
                 foreach (var hum in humans)
                 {
-                    CountryId = _humanRepository.GetAllHumans().First(human => human.Id == hum.Id).CountryId;
+                    CountryId = (int)_humanRepository.GetAllHumans().First(human => human.Id == hum.Id).CountryId;
                     hum.CountryId = CountryId;
                     hum.Country = _countryRepository.GetAllCountries().First(country => country.Id == hum.CountryId).Name;
                 }
@@ -62,7 +62,7 @@ namespace ObjectBD.Controllers
                 int CountryId;
                 foreach (var hum in humans)
                 {
-                    CountryId = _humanRepository.GetAllHumans().First(human => human.Id == hum.Id).CountryId;
+                    CountryId = (int)_humanRepository.GetAllHumans().First(human => human.Id == hum.Id).CountryId;
                     hum.CountryId = CountryId;
                     hum.Country = _countryRepository.GetAllCountries().First(country => country.Id == hum.CountryId).Name;
                 }
@@ -82,7 +82,11 @@ namespace ObjectBD.Controllers
         [HttpPost]
         public IActionResult Create(Human human)
         {
+            if (ModelState.IsValid)
+            { 
             _humanRepository.AddHuman(human);
+            }
+
             return View();
         }
        

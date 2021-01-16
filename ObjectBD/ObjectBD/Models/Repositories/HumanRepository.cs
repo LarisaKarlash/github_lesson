@@ -42,7 +42,7 @@ namespace ObjectBD.Models
         public void CreateHuman()
         {
 
-            Human human = new Human() { FirstName = "Mikle", LastName = "Smitt", Age = 56, IsSick = true, Gender = "Male", CountryId = 4 };
+            Human human = new Human() { FirstName = "Mikle", LastName = "Smitt", Age = 56, IsSick = true, Gender = Gender.Male, CountryId = CountryId.Uk };
 
             _context.Humans.Add(human);         
             _context.SaveChanges();
