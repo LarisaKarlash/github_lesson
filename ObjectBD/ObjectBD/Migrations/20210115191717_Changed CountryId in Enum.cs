@@ -32,6 +32,7 @@ namespace ObjectBD.Migrations
                 principalTable: "Countries",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
