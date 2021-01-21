@@ -26,7 +26,7 @@ namespace ObjectBD.Models
         public Gender Gender { get; set; }
 
         [Required]
-        public CountryId CountryId { get; set; }
+        public int CountryId { get; set; }
         public virtual Country Country { get; set; }
     }
 
@@ -36,13 +36,5 @@ namespace ObjectBD.Models
         Male,
         Female        
     }
-    public enum CountryId
-    {
-        Underfined,
-        US,
-        India,
-        Brazil,
-        Uk,
-        Ukraine=8
-    }
+    
 }

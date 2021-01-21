@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ObjectBD.Models;
 using ObjectBD.ViewModels;
@@ -25,6 +26,7 @@ namespace ObjectBD.Controllers
             _countryRepository = countryRepository;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();

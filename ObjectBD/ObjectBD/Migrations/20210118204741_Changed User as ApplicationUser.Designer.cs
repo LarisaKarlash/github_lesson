@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ObjectBD.Models;
 
 namespace ObjectBD.Migrations
 {
     [DbContext(typeof(ObjectBDDBContext))]
-    partial class ObjectBDDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210118204741_Changed User as ApplicationUser")]
+    partial class ChangedUserasApplicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,6 +308,9 @@ namespace ObjectBD.Migrations
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CountryId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -322,7 +327,7 @@ namespace ObjectBD.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
+                    b.HasIndex("CountryId1");
 
                     b.ToTable("Humans");
 
@@ -454,9 +459,7 @@ namespace ObjectBD.Migrations
                 {
                     b.HasOne("ObjectBD.Models.Country", "Country")
                         .WithMany("Humans")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CountryId1");
 
                     b.Navigation("Country");
                 });

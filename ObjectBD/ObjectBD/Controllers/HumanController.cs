@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ObjectBD.Models;
 using ObjectBD.ViewModels;
@@ -73,12 +75,17 @@ namespace ObjectBD.Controllers
         }
 
         // Добавление человека
+       // [Authorize] //Create будет выполняться только после авторизации SignIn, убираем, если запреты проставлены в startup
         [HttpGet]
         public IActionResult Create()
         {
+            IEnumerable<Country> countries = _countryRepository.GetAllCountries();
+            ViewBag.CountryList = new SelectList(countries, "Id", "Name");
+
             return View();
         }
 
+      // [Authorize] 
         [HttpPost]
         public IActionResult Create(Human human)
         {

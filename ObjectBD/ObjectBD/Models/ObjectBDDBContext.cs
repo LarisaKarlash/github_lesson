@@ -8,8 +8,13 @@ using System.Threading.Tasks;
 
 namespace ObjectBD.Models 
 {
-    public class ObjectBDDBContext : IdentityDbContextPolzow
+    public class ObjectBDDBContext : IdentityDbContext<ApplicationUser>
     {
+       
+        //public ObjectBDDBContext(DbContextOptions options) : base(options)
+        //{ 
+        //}
+
         // Указываем, в какие наборы будет проектироваться таблица
         public DbSet<Country> Countries { get; set; }
         public DbSet<Human> Humans { get; set; }
@@ -37,13 +42,13 @@ namespace ObjectBD.Models
                 new Country { Id = 4, Name = "UK", Population = 509500000, SickCount = 9238600, DeadCount = 176764, RecoveredCount = 8409986, Vaccine = false });
 
             modelBuilder.Entity<Human>().HasData(
-                new Human { Id = 1, FirstName = "Obi-wan", LastName = "Kenobi", Age = 38, IsSick = false, Gender = Gender.Male, CountryId = CountryId.US },
-                new Human { Id = 2, FirstName = "Sanwise", LastName = "Gamgee", Age = 54, IsSick = false, Gender = Gender.Male, CountryId = CountryId.US },
-                new Human { Id = 3, FirstName = "Hose", LastName = "Rodriges", Age = 30, IsSick = true, Gender = Gender.Male, CountryId = CountryId.Brazil },
-                new Human { Id = 4, FirstName = "Consuela", LastName = "Tridana", Age = 43, IsSick = false, Gender = Gender.Female, CountryId = CountryId.Brazil },
-                new Human { Id = 5, FirstName = "Ana", LastName = "Cormelia", Age = 25, IsSick = true, Gender = Gender.Female, CountryId = CountryId.Brazil },
-                new Human { Id = 6, FirstName = "Thomas", LastName = "Edison", Age = 84, IsSick = true, Gender = Gender.Male, CountryId = CountryId.US },
-                new Human { Id = 7, FirstName = "Mikle", LastName = "Smitt", Age = 56, IsSick = true, Gender = Gender.Male, CountryId = CountryId.Uk });
+                new Human { Id = 1, FirstName = "Obi-wan", LastName = "Kenobi", Age = 38, IsSick = false, Gender = Gender.Male, CountryId = 1 },
+                new Human { Id = 2, FirstName = "Sanwise", LastName = "Gamgee", Age = 54, IsSick = false, Gender = Gender.Male, CountryId = 1 },
+                new Human { Id = 3, FirstName = "Hose", LastName = "Rodriges", Age = 30, IsSick = true, Gender = Gender.Male, CountryId = 3 },
+                new Human { Id = 4, FirstName = "Consuela", LastName = "Tridana", Age = 43, IsSick = false, Gender = Gender.Female, CountryId = 3 },
+                new Human { Id = 5, FirstName = "Ana", LastName = "Cormelia", Age = 25, IsSick = true, Gender = Gender.Female, CountryId = 3 },
+                new Human { Id = 6, FirstName = "Thomas", LastName = "Edison", Age = 84, IsSick = true, Gender = Gender.Male, CountryId = 1 },
+                new Human { Id = 7, FirstName = "Mikle", LastName = "Smitt", Age = 56, IsSick = true, Gender = Gender.Male, CountryId = 4 });
         }
        
     }

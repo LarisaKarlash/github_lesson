@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<ApplicationUser> signInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -16,14 +18,43 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                @*<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">*@
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Info">General Info</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Human" asp-action="Index">Human</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <label class="nav-item">@User.Identity.Name</label>
+                            </li>
+                            <li class="nav-item">
+                                <form asp-controller="Account" asp-action="Logout" method="post">
+                                    <button class="nav-link btn btn-link py-0 text-dark" type="submit">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
