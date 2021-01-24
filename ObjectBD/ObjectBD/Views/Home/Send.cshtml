@@ -1,0 +1,16 @@
+﻿
+@model ServiceSendViewModel
+@{
+    ViewData["Title"] = "Send";
+}
+
+<form asp-controller="Home" asp-action="Send" method="post">
+    <div asp-validation-summary="All"> </div>
+
+    <span asp-validation-for="TipSend"> </span><br>
+    <label asp-for="TipSend"></label><br>
+    <select asp-for="TipSend" asp-items="Html.GetEnumSelectList<TipSend>()" type="text"></select><br>
+    <br>
+
+    <button type="submit">Send</button>
+</form>

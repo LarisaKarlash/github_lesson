@@ -8,8 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ObjectBD.Configurations;
 using ObjectBD.Controllers;
 using ObjectBD.Models;
+using ObjectBD.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +21,11 @@ namespace ObjectBD
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -38,7 +39,11 @@ namespace ObjectBD
 
             services.AddScoped<IHumanRepository, HumanRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
-           // services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ObjectBDDBContext>();
+
+            services.AddScoped<IMessageSender, EmailMessageSender>();
+            //services.AddScoped<IMessageSender, SmsMessageSender>();
+
+            // services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ObjectBDDBContext>();
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ObjectBDDBContext>();          
 
             //переопределяем логику пароля
@@ -54,6 +59,8 @@ namespace ObjectBD
             //options.UseSqlServer(Configuration.GetConnectionString("ObjectBDDbConnectionNew")).UseLazyLoadingProxies());
             services.AddDbContext<ObjectBDDBContext>();
 
+            //привязывает к конфигурации секцию
+            services.Configure<ObjectBDConfiguration>(_configuration.GetSection("ObjectBD"));            
 
         }
 
@@ -80,6 +87,20 @@ namespace ObjectBD
 
             //app.UseSession();
 
+            //app.Use(async (context, next) =>
+            // {
+            //     Console.WriteLine("Before");
+            //     await next();
+            //     Console.WriteLine("after");
+            // });
+
+            //app.Map("/Account", AccountHandling);
+
+            //app.Run(async context =>
+            //{
+            //    Console.WriteLine("Before Run");
+            //});
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -87,5 +108,13 @@ namespace ObjectBD
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+        //private void AccountHandling(IApplicationBuilder app)
+        //{
+        //    app.Run(async context =>
+        //    {
+        //        Console.WriteLine("Run Map");
+        //    });
+        //}
     }
 }
