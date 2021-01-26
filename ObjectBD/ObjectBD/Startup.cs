@@ -40,8 +40,17 @@ namespace ObjectBD
             services.AddScoped<IHumanRepository, HumanRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
 
-            services.AddScoped<IMessageSender, EmailMessageSender>();
+            services.UseMessageSender();
+            //services.AddScoped<IMessageSender, EmailMessageSender>();
             //services.AddScoped<IMessageSender, SmsMessageSender>();
+
+            services.AddSingleton<IRestEkzClient, RestEkzClient>();
+            services.AddSingleton<FileProcessingChannel>();
+
+            services.AddMemoryCache();
+
+            services.AddHostedService<LoadFileHostedService>();
+            services.AddHostedService<UploadFileHostedService>();
 
             // services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ObjectBDDBContext>();
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ObjectBDDBContext>();          
@@ -55,9 +64,9 @@ namespace ObjectBD
                 options.Password.RequireUppercase = false;
             });
 
-            //services.AddDbContext<ObjectBDDBContext>(options =>
-            //options.UseSqlServer(Configuration.GetConnectionString("ObjectBDDbConnectionNew")).UseLazyLoadingProxies());
-            services.AddDbContext<ObjectBDDBContext>();
+            services.AddDbContext<ObjectBDDBContext>(options =>
+            options.UseSqlServer(_configuration.GetConnectionString("ObjectBDDbConnectionNew")).UseLazyLoadingProxies());
+            //services.AddDbContext<ObjectBDDBContext>();
 
             //привязывает к конфигурации секцию
             services.Configure<ObjectBDConfiguration>(_configuration.GetSection("ObjectBD"));            
@@ -84,6 +93,8 @@ namespace ObjectBD
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseWriteToConsole("Hello");
 
             //app.UseSession();
 

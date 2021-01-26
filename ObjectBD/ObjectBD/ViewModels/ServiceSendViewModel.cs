@@ -9,9 +9,8 @@ namespace ObjectBD.ViewModels
     }
     public enum TipSend
     {
-        Underfined,
-        Email,
-        Sms
+       Email,
+       Sms
     }
 
 }

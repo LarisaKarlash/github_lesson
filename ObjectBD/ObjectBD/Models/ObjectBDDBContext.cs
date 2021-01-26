@@ -10,26 +10,26 @@ namespace ObjectBD.Models
 {
     public class ObjectBDDBContext : IdentityDbContext<ApplicationUser>
     {
-       
-        //public ObjectBDDBContext(DbContextOptions options) : base(options)
-        //{ 
-        //}
+
+        public ObjectBDDBContext(DbContextOptions options) : base(options)
+        {
+        }
 
         // Указываем, в какие наборы будет проектироваться таблица
         public DbSet<Country> Countries { get; set; }
         public DbSet<Human> Humans { get; set; }
 
         private IConfiguration _configuration { get; }
-        public ObjectBDDBContext(IConfiguration configuration )
-        {
-            _configuration = configuration;
-        }
+        //public ObjectBDDBContext(IConfiguration configuration )
+        //{
+        //    _configuration = configuration;
+        //}
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //_configuration.GetConnectionString("ConnectionStrings");            
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("ObjectBDDbConnectionNew")).UseLazyLoadingProxies(); // c методом LazyLoading           
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    //_configuration.GetConnectionString("ConnectionStrings");            
+        //    optionsBuilder.UseSqlServer(_configuration.GetConnectionString("ObjectBDDbConnectionNew")).UseLazyLoadingProxies(); // c методом LazyLoading           
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
