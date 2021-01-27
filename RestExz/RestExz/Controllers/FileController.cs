@@ -11,10 +11,25 @@ namespace RestExz.Controllers
     public class FileController
     {
         [HttpGet("File")]
-        public FileContentResult Get()
+        public FileContentResult Get([FromQuery]string nameImangeRest)
         {
-            var fileBytes = System.IO.File.ReadAllBytes("wwwroot/TerrainImage55.jpg");
-            return new FileContentResult(fileBytes, "image/jpeg");
+            if (String.IsNullOrEmpty(nameImangeRest))
+            {
+                nameImangeRest = "TerrainImage55";
+            }
+
+            string path = "wwwroot/" + nameImangeRest + ".jpg";
+
+            if (System.IO.File.Exists(path))
+            {
+                var fileBytes = System.IO.File.ReadAllBytes(path);
+                return new FileContentResult(fileBytes, "image/jpeg");
+            }
+            else 
+            {
+                return null;
+            }
+           
         }
 
         [HttpPost("File")]

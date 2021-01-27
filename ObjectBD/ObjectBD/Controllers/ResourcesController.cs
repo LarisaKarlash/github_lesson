@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
+using ObjectBD.Configurations;
+using ObjectBD.Helpers;
 using ObjectBD.Services;
 using ObjectBD.ViewModels;
 using RestSharp;
@@ -12,28 +15,57 @@ namespace ObjectBD.Controllers
         private readonly IRestEkzClient _restClient;
         private readonly FileProcessingChannel _channel;
         private readonly IMemoryCache _cache;
-        public ResourcesController(IRestEkzClient restClient, IMemoryCache cache, FileProcessingChannel channel)
+        private readonly FileConfiguration _configuration;
+
+        public ResourcesController(
+            IRestEkzClient restClient,
+            IMemoryCache cache,
+            FileProcessingChannel channel,
+            IOptions<FileConfiguration> options)
         {
             _restClient = restClient;
             _cache = cache;
             _channel = channel;
+            _configuration = options.Value;
+        }
+
+        [HttpGet]
+        public IActionResult Image()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Image(ResourceImageViewModel resourceImage )
+        {
+            // Занесем значения Image из модели в string nameImange class Helper
+            string form_nameImange = FileHelper.Get_nameImange(resourceImage);
+
+            //Чистим cache
+            var cacheKey = FileHelper.Get_CacheKey();
+           _cache.Remove(cacheKey);
+
+            return Get();//RedirectToAction("Index", "Home");
         }
 
         // Открываем файл изображения из Rest файла
         public FileContentResult Get()
         {
-            var cacheKey = $"image_{DateTime.UtcNow:yyyy_MM_dd}";
+            var nameImangeRest = FileHelper.nameImange;
+
+            var cacheKey = FileHelper.Get_CacheKey();
             var image = _cache.Get<byte[]>(cacheKey);
 
-            if (image == null)
+            if (image == null )
             {
-                image = _restClient.GetFile();
+                image = _restClient.GetFile(nameImangeRest);
                 var memoryCacheEntry = new MemoryCacheEntryOptions();
-                memoryCacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2);
+                memoryCacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(_configuration.TimeAll.Cache);
+                memoryCacheEntry.SlidingExpiration = TimeSpan.FromHours(_configuration.TimeAll.Sliding);
                 _cache.Set<byte[]>(cacheKey, image, memoryCacheEntry);
             }
 
-            return new FileContentResult(image, "image/jpeg");
+            return new FileContentResult(image, FileHelper.Get_ImageType());
         }
 
         [HttpGet]
@@ -48,7 +80,7 @@ namespace ObjectBD.Controllers
         public IActionResult Upload(ResourceUploadViewModel viewModel)
         {
             var entryOptions = new MemoryCacheEntryOptions();
-            entryOptions.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2);
+            entryOptions.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(_configuration.TimeAll.Cache);
 
             if (viewModel.File?.Length > 0)
             {

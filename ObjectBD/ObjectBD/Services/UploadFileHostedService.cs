@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using ObjectBD.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,16 @@ namespace ObjectBD.Services
         private IRestEkzClient _restClient { get; }
         private FileProcessingChannel _channel { get; }
 
-        public UploadFileHostedService(IRestEkzClient restClient, FileProcessingChannel channel)
+        private readonly FileConfiguration _configuration;
+
+        public UploadFileHostedService(
+            IRestEkzClient restClient, 
+            FileProcessingChannel channel,
+            IOptions<FileConfiguration> options)
         {
             _restClient = restClient;
             _channel = channel;
+            _configuration = options.Value;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -24,7 +32,7 @@ namespace ObjectBD.Services
             {
                 _restClient.UploadFile(_channel.Get());
 
-                await Task.Delay(TimeSpan.FromSeconds(10));
+                await Task.Delay(TimeSpan.FromSeconds(_configuration.TimeAll.DelayUpload));
             }
         }
     }

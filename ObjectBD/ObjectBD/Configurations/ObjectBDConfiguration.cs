@@ -31,5 +31,4 @@ namespace ObjectBD.Configurations
         public string MyNumber { get; set; }
     }
 
-
 }

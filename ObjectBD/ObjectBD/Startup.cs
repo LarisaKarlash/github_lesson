@@ -69,7 +69,8 @@ namespace ObjectBD
             //services.AddDbContext<ObjectBDDBContext>();
 
             //привязывает к конфигурации секцию
-            services.Configure<ObjectBDConfiguration>(_configuration.GetSection("ObjectBD"));            
+            services.Configure<ObjectBDConfiguration>(_configuration.GetSection("ObjectBD"));
+            services.Configure<FileConfiguration>(_configuration.GetSection("File"));
 
         }
 

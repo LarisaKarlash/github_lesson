@@ -8,7 +8,7 @@ namespace ObjectBD.Services
 {
     public interface IRestEkzClient
     {
-        public byte[] GetFile();
+        public byte[] GetFile(string nameImangeRest);
 
         public void UploadFile(IFormFile file);
     }
