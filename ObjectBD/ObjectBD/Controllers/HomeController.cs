@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ObjectBD.Models;
 using ObjectBD.Services;
@@ -19,17 +20,21 @@ namespace ObjectBD.Controllers
         private ICountryRepository _countryRepository { get; set; }
 
         private readonly IMessageSender _messageSender;
+       
+       // private readonly IServiceCollection _services;
 
         public HomeController(ILogger<HomeController> logger,
                               IHumanRepository humanRepository,
                               ICountryRepository countryRepository,
-                              IMessageSender messageSender)
+                              IMessageSender messageSender//,
+                              /*IServiceCollection services*/)
         {
             _logger = logger;
             _humanRepository = humanRepository;
             _countryRepository = countryRepository;
             _messageSender = messageSender;
-        }
+            //_services = services;
+         }
 
         [AllowAnonymous]
         public IActionResult Index()
@@ -47,7 +52,10 @@ namespace ObjectBD.Controllers
             var tip = serviceSend.TipSend.ToString();
 
             if (ModelState.IsValid)
-            {
+            {              
+
+                //   _services.UseMessageSender();
+
                 if (tip == "Email")
                 {
                     _messageSender.SendMessage();

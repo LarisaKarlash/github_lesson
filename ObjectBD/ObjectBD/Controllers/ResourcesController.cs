@@ -7,12 +7,13 @@ using ObjectBD.Services;
 using ObjectBD.ViewModels;
 using RestSharp;
 using System;
+using System.Threading.Tasks;
 
 namespace ObjectBD.Controllers
 {
     public class ResourcesController : Controller
     {
-        private readonly IRestEkzClient _restClient;
+        private readonly IRestEkzClient _restClient; 
         private readonly FileProcessingChannel _channel;
         private readonly IMemoryCache _cache;
         private readonly FileConfiguration _configuration;
@@ -77,14 +78,15 @@ namespace ObjectBD.Controllers
         }
 
         [HttpPost]
-        public IActionResult Upload(ResourceUploadViewModel viewModel)
+        public async Task<IActionResult> Upload(ResourceUploadViewModel viewModel)
         {
             var entryOptions = new MemoryCacheEntryOptions();
             entryOptions.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(_configuration.TimeAll.Cache);
 
             if (viewModel.File?.Length > 0)
             {
-                _channel.SetAsync(viewModel.File);
+               // _restClient.UploadFile(viewModel.File);
+                await _channel.SetAsync(viewModel.File); //ложим в очередь
                 viewModel.File = null;
                 viewModel.UploadStage = UploadStage.Comleted;
             }

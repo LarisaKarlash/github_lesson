@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using ObjectBD.Configurations;
@@ -14,16 +15,19 @@ namespace ObjectBD.Services
     // открываем файл изображения из Rest файла в фоновом режиме
     public class LoadFileHostedService : BackgroundService
     {
-        private readonly IRestEkzClient _restClient;
+        // private readonly IRestEkzClient _restClient;
+        private readonly IServiceProvider _provider;
         private readonly IMemoryCache _cache;
         private readonly FileConfiguration _configuration;
 
         public LoadFileHostedService(
-            IRestEkzClient restClient, 
+           // IRestEkzClient restClient, 
+            IServiceProvider provider,
             IMemoryCache cache,
             IOptions<FileConfiguration> options)
         {
-            _restClient = restClient;
+            // _restClient = restClient;
+            _provider = provider;
             _cache = cache;
             _configuration = options.Value;
         }
@@ -33,6 +37,10 @@ namespace ObjectBD.Services
         {
             while (!cancellationToken.IsCancellationRequested)
             {
+                
+                var scope = _provider.CreateScope();
+                var _restClient = scope.ServiceProvider.GetRequiredService<IRestEkzClient>();
+
                 var cacheKey = FileHelper.Get_CacheKey();
                 var image = _cache.Get<byte[]>(cacheKey);
 

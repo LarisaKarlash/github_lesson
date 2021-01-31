@@ -25,21 +25,25 @@ namespace ObjectBD.Services
             return context;
         }
 
-        public void UploadFile([MaybeNull] IFormFile file)
+        public void UploadFile(IFormFile file)
         {
-            if (file == null)
-                return;
-
             var client = new RestClient(FileHelper.Get_RestClient());
             var request = new RestRequest("File", Method.POST);
             using (var stream = new MemoryStream())
             {
-                file.CopyTo(stream);
+                try
+                {
+                    file.CopyTo(stream);
+                }
+                catch (Exception e)
+                {
+                    var message = e.Message;
+                }
                 request.AddJsonBody(Convert.ToBase64String(stream.ToArray()));
+                request.AddQueryParameter("fileName", file.FileName);
+                client.Execute(request);
             }
 
-            request.AddQueryParameter("fileName", file.FileName);
-            var response = client.Execute(request);
         }
     }
 }

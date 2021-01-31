@@ -44,7 +44,9 @@ namespace ObjectBD
             //services.AddScoped<IMessageSender, EmailMessageSender>();
             //services.AddScoped<IMessageSender, SmsMessageSender>();
 
-            services.AddSingleton<IRestEkzClient, RestEkzClient>();
+            // services.AddSingleton<IRestEkzClient, RestEkzClient>();
+            services.AddScoped<IRestEkzClient, RestEkzClient>();
+
             services.AddSingleton<FileProcessingChannel>();
 
             services.AddMemoryCache();

@@ -17,7 +17,8 @@ namespace ObjectBD.Services
 
         public static IServiceCollection UseMessageSender(this IServiceCollection services)
         {
-            ServiceSendViewModel serviceSend = new ServiceSendViewModel();
+           ServiceSendViewModel serviceSend = new ServiceSendViewModel();
+
            var tip = serviceSend.TipSend.ToString();
 
             if (tip == "Sms")

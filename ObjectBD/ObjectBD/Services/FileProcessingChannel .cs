@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ObjectBD.Services
 {
-    public class FileProcessingChannel
+    public class FileProcessingChannel 
     {
         private Channel<IFormFile> _channel;
 
@@ -21,14 +21,15 @@ namespace ObjectBD.Services
             await _channel.Writer.WriteAsync(file);
         }
 
-        public IFormFile Get()
-        {
-            IFormFile file;
-            _channel.Reader.TryRead(out file);
-            return file;
-        }
+        //public IFormFile Read()
+        //{
+        //    IFormFile file;
+        //    _channel.Reader.TryRead(out file);
+        //    return file;
+        //}
 
-        public IAsyncEnumerable<IFormFile> GetAllAsync()
+
+        public IAsyncEnumerable<IFormFile> GetAsync()
         {
             return _channel.Reader.ReadAllAsync();
         }
