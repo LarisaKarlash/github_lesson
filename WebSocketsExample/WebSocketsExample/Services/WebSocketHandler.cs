@@ -11,21 +11,23 @@ namespace WebSocketsExample.Services
 {
     public class WebSocketHandler
     {
-        private ConcurrentDictionary<Guid, WebSocket> websocketConnections = new ConcurrentDictionary<Guid, WebSocket>();
+        //private ConcurrentDictionary<Guid, WebSocket> websocketConnections = new ConcurrentDictionary<Guid, WebSocket>();
+        private ConcurrentDictionary<string, WebSocket> websocketConnections = new ConcurrentDictionary<string, WebSocket>();
 
-        public async Task Handler(Guid connectionGuid, WebSocket webSocket)
+        //public async Task Handler(Guid connectionGuid, WebSocket webSocket)
+        public async Task Handler(string username, WebSocket webSocket)
         {
             //установили соединение по уникальному ключу
-            bool addedSucessfully = websocketConnections.TryAdd(connectionGuid, webSocket);
+            bool addedSucessfully = websocketConnections.TryAdd(username, webSocket);
 
             if (addedSucessfully)
             {
-                 await SendToAllSockets($"User {connectionGuid} joined the chat.");
+                 await SendToAllSockets($"User {username} joined the chat.");
 
                 while (webSocket.State == WebSocketState.Open)
                 {
                     //пока открыт WebSocket, должны получать сообщения
-                    string message = await Receive(webSocket);
+                    string message = await Receive(username,webSocket);
                     if (message != null)
                     {
                         await SendToAllSockets(message);
@@ -47,15 +49,17 @@ namespace WebSocketsExample.Services
         }
 
         //получаем сообщение всем участникам
-        public async Task<String> Receive(WebSocket webSocket)
+        public async Task<String> Receive(string username, WebSocket webSocket)
         {
-            ArraySegment<byte> arraySegment = new ArraySegment<byte>(new byte[1024]);
+            ArraySegment<byte> arraySegment = new ArraySegment<byte>(new byte[4096]);
             WebSocketReceiveResult receiveResult = await webSocket.ReceiveAsync(arraySegment, CancellationToken.None);
 
             if (receiveResult.MessageType == WebSocketMessageType.Text)
             {
-                string message = Encoding.UTF8.GetString(arraySegment).TrimEnd('\0');
-                return message;
+                string message = Encoding.Default.GetString(arraySegment).TrimEnd('\0');
+                if (!string.IsNullOrWhiteSpace(message))
+                    return $"<b>{username}</b>: {message}";
+
             }
             return null;
 

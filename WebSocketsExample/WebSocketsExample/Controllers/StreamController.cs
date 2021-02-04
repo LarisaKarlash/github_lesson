@@ -17,7 +17,7 @@ namespace WebSocketsExample.Controllers
         {
             _webSocketHandler = webSocketHandler;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Stream()
         {
             return View();
         }
@@ -26,31 +26,42 @@ namespace WebSocketsExample.Controllers
             return View();
         }
 
-        public async Task Get()
+        public async Task Get(string username)
         {
             if (HttpContext.WebSockets.IsWebSocketRequest)
             {
                 // запрашивает соединение
                 WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
 
-                await _webSocketHandler.Handler(Guid.NewGuid(),webSocket);
-                //await SendMessages(webSocket);
+                // Вызов из Stream
+                if (username == null)
+                {
+                    await SendMessages(webSocket);
+                }
+
+                // Вызов из Chat
+                else
+                {
+                    await _webSocketHandler.Handler(username, webSocket);
+                }
+
+
             }
             else
             {
                 HttpContext.Response.StatusCode = 400;
             }
         }
-        //private async Task SendMessages(WebSocket webSocket)
-        //{
-        //    int i = 0;
-        //    while (true)
-        //    {
-        //        byte[] message = Encoding.UTF8.GetBytes($"message {i++}");
-        //        await webSocket.SendAsync(new ArraySegment<byte>(message), WebSocketMessageType.Text, true, CancellationToken.None);
-        //        await Task.Delay(TimeSpan.FromSeconds(5));
-        //    }
-        //}
+        private async Task SendMessages(WebSocket webSocket)
+        {
+            int i = 0;
+            while (true)
+            {
+                byte[] message = Encoding.UTF8.GetBytes($"message {i++}");
+                await webSocket.SendAsync(new ArraySegment<byte>(message), WebSocketMessageType.Text, true, CancellationToken.None);
+                await Task.Delay(TimeSpan.FromSeconds(5));
+            }
+        }
 
 
     }
