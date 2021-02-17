@@ -1,33 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CountryZip.Models;
+using CountryZip.Models.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using WebSocketsExample.Models;
 
-namespace WebSocketsExample.Controllers
+namespace CountryZip.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICountryNsiRepositories _countryNsi;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ICountryNsiRepositories countryNsi)
         {
             _logger = logger;
+            _countryNsi = countryNsi;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
-        {
+        {           
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();
         }
- 
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

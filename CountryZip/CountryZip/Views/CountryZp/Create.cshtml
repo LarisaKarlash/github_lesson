@@ -1,0 +1,25 @@
+﻿@model CountryZp
+    <form asp-controller="CountryZp" asp-action="Create" method="post">
+        <div asp-validation-summary="All"> </div>
+
+        <span asp-validation-for="PostCode" class="text-danger"> </span><br>
+        <label asp-for="PostCode"></label><br>
+        <input asp-for="PostCode" type="text" /><br>
+
+        <span asp-validation-for="Country" class="text-danger"> </span><br>
+        <label asp-for="Country"></label><br>
+        <input asp-for="Country" type="text" /><br>
+
+        <span asp-validation-for="CountryAbbreviation" class="text-danger"> </span><br>
+        <label asp-for="CountryAbbreviation"></label><br>
+        <input asp-for="CountryAbbreviation" type="text" /><br>
+
+        <span asp-validation-for="CountryNsiId" class="text-danger"> </span><br>
+        <label asp-for="CountryNsiId"></label><br>
+        <input asp-for="CountryNsiId" type="number" /><br>
+        <br>
+
+        <button type="submit">Create</button>
+    </form>
+
+

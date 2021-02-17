@@ -1,0 +1,31 @@
+﻿@model PlaceZp
+<form asp-controller="PlaceZp" asp-action="Create" method="post">
+    <div asp-validation-summary="All"> </div>
+
+    <span asp-validation-for="PlaceName" class="text-danger"> </span><br>
+    <label asp-for="PlaceName"></label><br>
+    <input asp-for="PlaceName" type="text" /><br>
+
+    <span asp-validation-for="Longitude" class="text-danger"> </span><br>
+    <label asp-for="Longitude"></label><br>
+    <input asp-for="Longitude" type="text" step="any" /><br>
+
+    <span asp-validation-for="State" class="text-danger"> </span><br>
+    <label asp-for="State"></label><br>
+    <input asp-for="State" type="text" /><br>
+
+    <span asp-validation-for="StateAbbreviation" class="text-danger"> </span><br>
+    <label asp-for="StateAbbreviation"></label><br>
+    <input asp-for="StateAbbreviation" type="text" /><br>
+
+    <span asp-validation-for="Latitude" class="text-danger"> </span><br>
+    <label asp-for="Latitude"></label><br>
+    <input asp-for="Latitude" type="text" step="any" /><br>
+
+    <span asp-validation-for="CountryZpId" class="text-danger"> </span><br>
+    <label asp-for="CountryZpId"></label><br>
+    <input asp-for="CountryZpId" type="number" /><br>
+    <br>
+
+    <button type="submit">Create</button>
+</form>

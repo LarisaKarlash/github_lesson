@@ -1,0 +1,28 @@
+﻿@model IEnumerable<PlaceZp>
+@{
+    ViewData["Title"] = "CountriesZp";
+}
+
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Id</th>
+        <th>PlaceName</th>
+        <th>Longitude</th>
+        <th>State</th>
+        <th>StateAbbreviation</th>
+        <th>Latitude</th>
+        <th>CountryZpId</th>
+    </tr>
+    @foreach (var country in Model)
+    {
+        <tr>
+            <td>@country.Id</td>
+            <td>@country.PlaceName</td>
+            <td>@country.Longitude</td>
+            <td>@country.State</td>
+            <td>@country.StateAbbreviation</td>
+            <td>@country.Latitude</td>
+            <td>@country.CountryZpId</td>
+        </tr>
+    }
+    </tab

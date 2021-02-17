@@ -1,0 +1,29 @@
+﻿@model CountriesViewModel
+<form asp-controller="Countries" asp-action="Index" method="post">
+    <div asp-validation-summary="All" class="text-danger"> </div>
+    <label class="text-primary">Введите: </label><br>
+
+    <span asp-validation-for="Code" class="text-danger"></span>
+    <label asp-for="Code">Две первые буквы страны </label><br>
+    <input asp-for="Code" type="text" /><br>
+    <br>
+
+    <span asp-validation-for="Range" class="text-danger"></span>
+    <label asp-for="Range">Диапазон </label><br>
+    <input asp-for="Range" type="text" /><br>
+    <br>
+
+    <button type="submit">Enter</button>
+    <br>
+    <br>
+    <br>
+
+
+    <label class="text-success  bg-light"> Countries Example: </label><br>
+    <label> Country.........Code...Range </label><br>
+    <label> Andorra..........AD....AD100 : AD700 </label><br>
+    <br>
+    <label class="alert-info"> Click  CountryNsi  for look all Countries: </label><br>
+
+</form>
+

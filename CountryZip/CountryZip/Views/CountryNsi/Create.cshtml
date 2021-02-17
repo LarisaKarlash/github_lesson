@@ -1,0 +1,23 @@
+﻿@model CountryNsi
+<form asp-controller="CountryNsi" asp-action="Create" method="post">
+    <div asp-validation-summary="All"> </div>
+
+    <span asp-validation-for="Country" class="text-danger"> </span><br>
+    <label asp-for="Country"></label><br>
+    <input asp-for="Country" type="text" /><br>
+
+    <span asp-validation-for="Code" class="text-danger"> </span><br>
+    <label asp-for="Code"></label><br>
+    <input asp-for="Code" type="text" /><br>
+
+    <span asp-validation-for="ExampleURL" class="text-danger"> </span><br>
+    <label asp-for="ExampleURL"></label><br>
+    <input asp-for="ExampleURL" type="text" /><br>
+
+    <span asp-validation-for="Range" class="text-danger"> </span><br>
+    <label asp-for="Range"></label><br>
+    <input asp-for="Range" type="text" /><br>
+    <br>
+
+    <button type="submit">Create</button>
+</form>
